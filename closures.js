@@ -6,7 +6,7 @@ var outer = function(){
   var name = 'Tyler';
   return function(){
     return 'The original name was ' + name;
-  }
+  };
 };
 
 /****** INSTRUCTIONS PROBLEM 1 ******/
@@ -127,7 +127,7 @@ function counterFactory(starting){
 
 
 var counter = counterFactory(10);
-counter();
+//counter();
 
 
 
@@ -175,7 +175,7 @@ var message = motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Bill
 invokes privateMethod. After you create the privateMethod. Invoke it by calling
 module.publicMethod(); outside the module scope */
 
-var module = function() {
+var module = (function() {
   var person = {
     name: "phillip",
     age: 29,
@@ -194,7 +194,7 @@ var module = function() {
     }
   };
 
-}();
+})();
 
 // Uncomment this after you create your public method
 module.publicMethod();
