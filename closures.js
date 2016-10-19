@@ -111,19 +111,23 @@ for incrementing the value once. The second function is called dec, this
 function is responsible for decrementing the value by one. You will need to use
 the module pattern to achieve this. */
 
-/*function counterFactory(value) {
-  function inc(value){
-    value = value + 1;
-    return function(value){
-      value = value - 1;
-      return value;
-    };
-  }
+function counterFactory(starting){
+  var total = starting;
+  return {
+    dec: function(){
+      total = total - 1;
+      return total;
+    },
+    inc: function(){
+      total = total + 1;
+      return total;
+    }
+  };
 }
 
 
 var counter = counterFactory(10);
-counter();*/
+counter();
 
 
 
@@ -146,14 +150,13 @@ function motivation(firstname, lastname){
   var welcomeText = 'You\'re doing awesome, keep it up ';
   // code message function here.
   function message(){
-    return welcomeText + firstname + ' ' + lastname;
+    return welcomeText + firstname + ' ' + lastname + ".";
   }
   //Uncommment this to return the value of your invoked message function
   return message();
 }
 
-motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
-
+var message = motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
 
 
 
@@ -172,7 +175,7 @@ motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
 invokes privateMethod. After you create the privateMethod. Invoke it by calling
 module.publicMethod(); outside the module scope */
 
-var module = (function() {
+var module = function() {
   var person = {
     name: "phillip",
     age: 29,
@@ -182,18 +185,16 @@ var module = (function() {
   var privateMethod = function(){
     return "Hi, I'm " + person.name + ", age " + person.age + " from " + person.location;
   };
-
   // Anything that is being returned is made public and can be invoked from
 	// outside our lexical scope
-
   return {
     // Code here.
     publicMethod: function(){
-      privateMethod();
+      return privateMethod();
     }
   };
 
-})();
+}();
 
 // Uncomment this after you create your public method
 module.publicMethod();
@@ -219,17 +220,15 @@ then 3, etc). Run this code in your console to see what the output is. */
 // To make this code work you will need to create a new scope for every iteration.
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
-  }
-
-  function newScope(i) {
-    console.log(i)
+   setTimeout(newScope(i), i * 1000);
   }
 }
+  function newScope(i) {
+  	return function(){
+    console.log(i);
+  	};
+  }
 timeOutCounter();
-
 
 
 
@@ -239,17 +238,31 @@ timeOutCounter();
 	#PROBLEM-08
 \******************************************************************************/
 
-var funcArray = [];
+var funcArray = [
+  function(){
+  return 0;
+}, function(){
+  return 1;
+}, function(){
+  return 2;
+}, function(){
+  return 3;
+}, function(){
+  return 4;
+}, function(){
+  return 5;
+}
+];
 
-/*
-  Make the following code work
 
-  funcArray[0]() //0
-  funcArray[1]() //1
-  funcArray[2]() //2
-  funcArray[3]() //3
-  funcArray[4]() //4
-  funcArray[5]() //5
+//Make the following code work
 
-  *Hint: Don't let this fool you. Break down what's really happening here.
-*/
+  funcArray[0](); //0
+  funcArray[1](); //1
+  funcArray[2](); //2
+  funcArray[3](); //3
+  funcArray[4](); //4
+  funcArray[5](); //5
+
+  //*Hint: Don't let this fool you. Break down what's really happening here.
+//*/
